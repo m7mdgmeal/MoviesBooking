@@ -177,11 +177,12 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\User\ShowHowPage.cshtml" />
     <Content Include="Views\Admin\MangmentMovies.cshtml" />
+    <Content Include="Views\Admin\ManagingHalls.cshtml" />
+    <Content Include="Views\Admin\AddMovie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\User\" />
-    <Folder Include="Views\Admin\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
