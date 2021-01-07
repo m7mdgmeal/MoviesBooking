@@ -8,5 +8,6 @@ namespace MoviesBooking.DAL
 {
     public class Dal:DbContext
     {
+
     }
 }
