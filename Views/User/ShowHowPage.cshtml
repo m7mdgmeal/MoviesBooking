@@ -9,12 +9,22 @@
 
 <html>
 <head>
+    <style>
+        table,
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width" />
     <meta name="viewport" content="width=device-width" />
     <title>ShowHowPage</title>
 </head>
 <body>
     <h3>Order By:</h3>
-    <br/>
+    <br />
 
     <table>
         <tr>
@@ -35,13 +45,16 @@
                 <td>@movie.time </td>
                 <td>@movie.price </td>
                 <td>
-                    <input id="NewPrice" type="number" min="0" />
-                    <button name="UpdatePrice" value=@movie.movieId> Submit</button>
+                    <input name="NewPrice" type="number" min="0" value="0" style="width: 50px;" />
+                    <button name="UpdatePrice" value=@movie.movieId formaction=@Url.Action("UpdatePrice") formmethod="post"> Submit</button>
                 </td>
                 <td>@movie.hallId</td>
                 <td>
-                    <input id="NewPrice" type="number" min="0" />
-                    <button name="UpdatePrice" value=@movie.movieId> Submit</button>
+                    <input name="NewHall" type="number" min="0" value="0" style="width: 50px;" />
+                    <button name="UpdateHall" value=@movie.movieId formaction=@Url.Action("UpdateHall") formmethod="post"> Submit</button>
+                </td>
+                <td>
+                    <button name="RemoveMovie" value=@movie.movieId formaction=@Url.Action("RemoveMovie") formmethod="post"> Remove</button>
                 </td>
             </tr>
         }
