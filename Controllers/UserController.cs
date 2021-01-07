@@ -13,5 +13,9 @@ namespace MoviesBooking.Controllers
         {
             return View();
         }
+        public ActionResult ShowHowPage()
+        {
+            return View();
+        }
     }
 }
