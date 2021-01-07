@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MoviesBooking.Models;
 using MoviesBooking.DAL;
 using MoviesBooking.ViewModel;
+using System.IO;
 
 namespace MoviesBooking.Controllers
 {
@@ -81,7 +82,7 @@ namespace MoviesBooking.Controllers
         {
             return View(); 
         }
-        public ActionResult AddNewMovie(Movie obj)
+        public ActionResult AddNewMovie(Movie obj,Image img)
         {
             Dal dal = new Dal();
             List<Movie> exist = (from x in dal.movies 
@@ -105,6 +106,13 @@ namespace MoviesBooking.Controllers
                 TempData["color"] = "red";
                 return View("AddMovie");
             }
+
+
+            string filename = Path.GetFileNameWithoutExtension(img.image.FileName);
+            string extension = Path.GetExtension(img.image.FileName);
+            filename = filename + obj.movieId + extension;
+            filename = Path.Combine(Server.MapPath("~/Images/"), filename);
+            img.image.SaveAs(filename);
 
             dal.movies.Add(obj);
             dal.SaveChanges();

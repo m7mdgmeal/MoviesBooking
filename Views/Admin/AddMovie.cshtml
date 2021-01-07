@@ -1,5 +1,4 @@
-﻿@model MoviesBooking.Models.Movie
-
+﻿@using MoviesBooking.Models
 @{
     Layout = null;
 }
@@ -27,8 +26,11 @@
         <br />
         Movie category  :<input id="Text1" type="text" name="category" required />
         <br />
+        Age limitation      :<input id="Text1" type="number" min="0" name="age" required />
+        <br />
+        Movie image :<input id="Text1" type="file" name="image" required />
+        <br />
         <input id="Submit1" type="submit" value="Add" />
-
 
     </form>
     <a href="@Url.Action("MangmentMovies", "Admin")">

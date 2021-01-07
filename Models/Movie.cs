@@ -17,7 +17,6 @@ namespace MoviesBooking.Models
         public double prePrice { get; set; }
         public string category { get; set; }
         public int hallId { get; set; }
-
         public int age { get; set; }
     }
 }
