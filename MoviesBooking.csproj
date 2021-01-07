@@ -181,6 +181,8 @@
     <Content Include="Views\Admin\ManagingHalls.cshtml" />
     <Content Include="Views\Admin\AddMovie.cshtml" />
     <Content Include="Views\User\stam.cshtml" />
+    <Content Include="Views\User\LoginUsers.cshtml" />
+    <Content Include="Views\User\RegisterUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
