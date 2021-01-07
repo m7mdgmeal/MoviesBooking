@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MoviesBooking.DAL
 {
-    
+   // dfg
     public class Dal:DbContext
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
