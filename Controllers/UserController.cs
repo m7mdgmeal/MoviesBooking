@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MoviesBooking.DAL;
+using MoviesBooking.Models;
+using MoviesBooking.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +14,12 @@ namespace MoviesBooking.Controllers
         // GET: User
         public ActionResult ShowHowPage()
         {
-            return View();
+            Dal dal = new Dal();
+            MovieViewModel cvm = new MovieViewModel();
+            List<Movie> movies = dal.movies.ToList<Movie>();
+            cvm.movie = new Movie();
+            cvm.movies = movies;
+            return View(cvm);
         }
 
     }
