@@ -9,13 +9,10 @@ namespace MoviesBooking.Controllers
     public class UserController : Controller
     {
         // GET: User
-        public ActionResult Index()
-        {
-            return View();
-        }
         public ActionResult ShowHowPage()
         {
             return View();
         }
+
     }
 }
