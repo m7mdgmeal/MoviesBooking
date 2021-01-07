@@ -13,8 +13,8 @@ namespace MoviesBooking.Models
         public string title { get; set; }
         public string date { get; set; }
         public string time { get; set; }
-        public float price { get; set; }
-        public float prePrice { get; set; }
+        public double price { get; set; }
+        public double prePrice { get; set; }
         public string category { get; set; }
         public int hallId { get; set; }
     }
