@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MoviesBooking.Models;
+using MoviesBooking.DAL;
+using MoviesBooking.ViewModel;
 
 namespace MoviesBooking.Controllers
 {
@@ -12,7 +14,12 @@ namespace MoviesBooking.Controllers
         // GET: Admin
         public ActionResult MangmentMovies()
         {
-            return View();
+            Dal dal = new Dal();
+            MovieViewModel cvm = new MovieViewModel();
+            List<Movie> movies = dal.movies.ToList<Movie>();
+            cvm.movie = new Movie();
+            cvm.movies = movies;
+            return View(cvm);
         }
     }
 }

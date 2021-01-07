@@ -1,4 +1,4 @@
-﻿@model MoviesBooking.Models.Movie
+﻿@using MoviesBooking.Models
 @model MoviesBooking.ViewModel.MovieViewModel
 
 @{
@@ -13,8 +13,37 @@
     <title>MangmentMovies</title>
 </head>
 <body>
-    <div>
-        hello world!!
-    </div>
+    <form action="" method="post">
+        <table>
+            <tr>
+                <th>Movie Name</th>
+                <th>Date </th>
+                <th>Time </th>
+                <th>Price </th>
+                <th>Update Price </th>
+                <th>Hall ID </th>
+                <th>Update Hall ID </th>
+                <th>Remove Movie </th>
+            </tr>
+            @foreach (Movie movie in Model.movies)
+            {
+            <tr>
+                <td>@movie.title</td>
+                <td>@movie.date </td>
+                <td>@movie.time </td>
+                <td>@movie.price </td>
+                <td>
+                    <input id="NewPrice" type="number" min="0" />
+                    <button name="UpdatePrice" value=@movie.movieId> Submit</button>
+                </td>
+                <td>@movie.hallId</td>
+                <td>
+                    <input id="NewPrice" type="number" min="0" />
+                    <button name="UpdatePrice" value=@movie.movieId> Submit</button>
+                </td>
+            </tr>
+            }
+            </table>
+    </form>
 </body>
 </html>
