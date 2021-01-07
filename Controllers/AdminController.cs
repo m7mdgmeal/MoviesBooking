@@ -111,9 +111,10 @@ namespace MoviesBooking.Controllers
             string filename = Path.GetFileNameWithoutExtension(img.image.FileName);
             string extension = Path.GetExtension(img.image.FileName);
             filename = filename + obj.movieId + extension;
+            obj.ImageUrl = "~/Images/" + filename;
             filename = Path.Combine(Server.MapPath("~/Images/"), filename);
             img.image.SaveAs(filename);
-
+            
             dal.movies.Add(obj);
             dal.SaveChanges();
             TempData["msg"] = "Movie added successfully !!";

@@ -183,6 +183,7 @@
     <Content Include="Views\User\stam.cshtml" />
     <Content Include="Views\User\LoginUsers.cshtml" />
     <Content Include="Views\User\RegisterUsers.cshtml" />
+    <Content Include="Views\User\SearchMovie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
