@@ -23,7 +23,10 @@
     <title>ShowHowPage</title>
 </head>
 <body>
-
+    @if (TempData["msg"] != null)
+    {
+        <h4 style="color:red;"> @TempData["msg"] </h4>
+    }
     <form action="FilterMovie" method="post">
         Show only movies with the decreased price :
         <input type="submit" value="Filter">

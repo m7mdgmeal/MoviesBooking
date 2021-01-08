@@ -15,7 +15,7 @@ namespace MoviesBooking.Controllers
         // GET: User
         public ActionResult ShowHowPage()
         {
-            if (Session["UserName"] != null)
+            if (Session["UserName"] == null)
                 Session["UserName"] = "0";
 
             Dal dal = new Dal();
@@ -112,6 +112,7 @@ namespace MoviesBooking.Controllers
         }
         public ActionResult HallSeats()
         {
+
             var dal = new Dal();
 
             var movieId = int.Parse(Request.Form["movieId"]);
@@ -140,6 +141,21 @@ namespace MoviesBooking.Controllers
                 tickets = notAvalibaleTickets,
                 hall = hall
             };
+            string date = movie.date + " " + movie.time;
+            DateTime MDate = DateTime.ParseExact(date, "yyyy-MM-dd HH:mm", null);
+            DateTime NDate = DateTime.Now;
+            if (NDate >= MDate)
+
+            {
+                TempData["msg"] = "You cant buy a ticket for movie that ended!!";
+                return RedirectToAction("ShowHowPage", "User"); ;
+            }
+            if (Session["age"]!= null && movie.age >(int)Session["age"])
+
+            {
+                TempData["msg"] = "You are under the requested age !!";
+                return RedirectToAction("ShowHowPage", "User"); ;
+            }
             return View(seatView);
         }
         public ActionResult OrderMovies()
@@ -185,6 +201,21 @@ namespace MoviesBooking.Controllers
             Dal dal = new Dal();
             List<Ticket> tickets = (from x in dal.tickets where x.movieId.Equals(id) select x).ToList<Ticket>();
             return tickets.Count;
+        }
+        public ActionResult BuyBefore()
+        {
+            int id, seatNum;
+            id = (int)Session["TicketMovieID"];
+            Int32.TryParse(Request.Form["SeatNumber"], out seatNum);
+            Dal dal = new Dal();
+            Ticket ticket = new Ticket
+            { isPayed = false, seatNumber = seatNum, movieId = id, userName = (string)Session["UserName"] };
+
+            dal.tickets.Add(ticket);
+            dal.SaveChanges();
+            List<Ticket> tickets = dal.tickets.ToList<Ticket>();
+            Session["BuyTicket"] = tickets[tickets.Count-1].ticketId.ToString();
+            return View("Payment");
         }
         public ActionResult SearchMovie()
         {

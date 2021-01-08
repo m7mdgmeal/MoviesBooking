@@ -38,7 +38,8 @@
                 }
             }
         </select>
-        <input type="submit" value="Select">
+        <input type="submit" value="Add to cart">
+        <button name="ticketId1" formaction=@Url.Action("BuyBefore") formmethod="post"> Buy</button>
     </form>
     <a href="@Url.Action("ShowHowPage", "User")">
         <span>Home page</span>

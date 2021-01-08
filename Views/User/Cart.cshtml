@@ -30,7 +30,14 @@
     </a>
     <br />
     <form action="PaymentAll" method="post">
-        <input id="Submit1" type="submit" value="Buy all" />
+        @if (Model.tickets.Count != 0)
+        {
+            <input id="Submit1" type="submit" value="Buy all" />
+        }
+        else
+        {
+            <input id="Submit1" type="submit" value="Buy all" disabled="true" />
+        }
     </form>
     <form action="" method="post">
         <table>
