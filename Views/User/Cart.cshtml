@@ -1,0 +1,52 @@
+﻿@model MoviesBooking.ViewModel.TicketViewModel
+@using MoviesBooking.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cart</title>
+    <style>
+        table,
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <a href="@Url.Action("ShowHowPage", "User")">
+        <span>Home page</span>
+    </a>
+    <table>
+        <tr>
+            <th></th>
+            <th>Movie Name</th>
+            <th>Date </th>
+            <th>Time </th>
+            <th>Price </th>
+            <th>Seat Number</th>
+        </tr>
+        @foreach (Ticket ticket in Model.tickets)
+        {
+            <tr>
+                <td>
+                    <button name="movieId" value=@ticket.ticketId formaction=@Url.Action("BuyTicket") formmethod="post"> Buy</button>
+                    <button name="movieId" value=@ticket.movieId formaction=@Url.Action("ChangeSeatNumber") formmethod="post"> Change seat number</button>
+                </td>
+                <td>@Model.GetName(ticket.movieId)</td>
+                <td>@Model.GetDate(ticket.movieId)</td>
+                <td>@Model.GetTime(ticket.movieId) </td>
+                <td>@Model.GetPrice(ticket.movieId)</td>
+                <td>@ticket.seatNumber</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

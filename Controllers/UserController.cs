@@ -15,6 +15,9 @@ namespace MoviesBooking.Controllers
         // GET: User
         public ActionResult ShowHowPage()
         {
+            if (Session["UserName"] != null)
+                Session["UserName"] = "0";
+
             Dal dal = new Dal();
             MovieViewModel cvm = new MovieViewModel();
             List<Movie> movies = dal.movies.ToList<Movie>();
@@ -60,10 +63,13 @@ namespace MoviesBooking.Controllers
                 return View("LoginUsers");
             }
 
-            if(exist[0].userType=="A")
+            if (exist[0].userType == "A")
                 return RedirectToAction("MangmentMovies", "Admin");
             else
-                return RedirectToAction("ShowHowPage", "User"); 
+            {
+                Session["UserName"] = obj.userName;
+                return RedirectToAction("ShowHowPage", "User");
+            }
         }
         
         public ActionResult BuyMovie()
@@ -160,6 +166,79 @@ namespace MoviesBooking.Controllers
         {
             return View();
         }
+        public ActionResult SearchByCategory()
+        {
 
+            Dal dal = new Dal();
+            string category=Request.Form["MovieCategory"];
+            MovieViewModel cvm = new MovieViewModel();
+            List<Movie> movies = (from x in dal.movies where x.category.Equals(category)
+                                  select x).ToList<Movie>();
+            cvm.movie = new Movie();
+            cvm.movies = movies;
+            return View("ShowHowPage", cvm);
+        }
+        public ActionResult SearchByTime()
+        {
+
+            Dal dal = new Dal();
+            string time = Request.Form["MovieTime"];
+            MovieViewModel cvm = new MovieViewModel();
+            List<Movie> movies = (from x in dal.movies
+                                  where x.time.Equals(time)
+                                  select x).ToList<Movie>();
+            cvm.movie = new Movie();
+            cvm.movies = movies;
+            return View("ShowHowPage", cvm);
+        }
+        public ActionResult SearchByDate()
+        {
+
+            Dal dal = new Dal();
+            string date = Request.Form["MovieDate"];
+            MovieViewModel cvm = new MovieViewModel();
+            List<Movie> movies = (from x in dal.movies
+                                  where x.time.Equals(date)
+                                  select x).ToList<Movie>();
+            cvm.movie = new Movie();
+            cvm.movies = movies;
+            return View("ShowHowPage",cvm);
+        }
+        public ActionResult SearchByPrice()
+        {
+
+            Dal dal = new Dal();
+            double price;
+            double.TryParse(Request.Form["rangeInput"], out price);
+            MovieViewModel cvm = new MovieViewModel();
+            List<Movie> movies = (from x in dal.movies
+                                  where x.price <= price 
+                                  select x).ToList<Movie>();
+            cvm.movie = new Movie();
+            cvm.movies = movies;
+            return View("ShowHowPage", cvm);
+        }
+        public ActionResult FilterMovie()
+        {
+
+            Dal dal = new Dal();
+            MovieViewModel cvm = new MovieViewModel();
+            List<Movie> movies = (from x in dal.movies
+                                  where x.prePrice !=0
+                                  select x).ToList<Movie>();
+            cvm.movie = new Movie();
+            cvm.movies = movies;
+            return View("ShowHowPage", cvm);
+        }
+        public ActionResult Cart()
+        {
+            Dal dal = new Dal();
+            string UserName = (string)Session["UserName"];
+            List<Ticket> tickets = (from x in dal.tickets where x.userName.Equals(UserName)
+                                    select x).ToList<Ticket>();
+            TicketViewModel cvm = new TicketViewModel();
+            cvm.tickets = tickets;
+            return View(cvm);
+        }
     }
 }

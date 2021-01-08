@@ -37,8 +37,17 @@
         <input type="submit" value="Search a movie">
     </form>
     <br />
+    <form action="FilterMovie" method="post">
+        Show only movies with the decreased price :
+        <input type="submit" value="Filter">
+    </form>
+    <br />
     <a href="@Url.Action("LoginUsers", "User")">
         <span>Login page</span>
+    </a>
+    <br />
+    <a href="@Url.Action("Cart", "User")">
+        <span>Shopping cart</span>
     </a>
     <table>
         <tr>
