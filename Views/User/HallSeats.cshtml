@@ -30,15 +30,16 @@
                     if (Model.tickets[id].seatNumber == count)
                     {
                         <h4 style="color:red;">@count </h4>
+                        id++;
                     }
                     else
                     {
-                        <h4 style="color:red;">@count </h4>
+                        <h4 style="color:green;">@count </h4>
                     }
                 }
                 else
                 {
-                    <h4 style = "color:red;" > @count </h4>
+                    <h4 style = "color:green;" >@count </h4 >
                 }
             }
 
