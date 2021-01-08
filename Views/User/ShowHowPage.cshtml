@@ -23,39 +23,54 @@
     <title>ShowHowPage</title>
 </head>
 <body>
-    <h3>Order By:</h3>
+    <form action="OrderMovies" method="post">
+        <label for="browser">Order by:</label>
+        <select name="OrderBy">
+            <option name="Choice1">Price increase</option>
+            <option name="Choice2">Price decrease</option>
+            <option name="Choice3">Most popular</option>
+            <option name="Choice4">Category</option>
+        </select>
+        <input type="submit" value="order">
+    </form>
+    <form action="SearchMovie" method="post">
+        <input type="submit" value="Search a movie">
+    </form>
     <br />
-
+    <a href="@Url.Action("LoginUsers", "User")">
+        <span>Login page</span>
+    </a>
     <table>
         <tr>
+            <th>Buy</th>
             <th>Movie Name</th>
             <th>Date </th>
             <th>Time </th>
             <th>Price </th>
-            <th>Update Price </th>
+            <th>Allowed Age </th>
             <th>Hall ID </th>
-            <th>Update Hall ID </th>
-            <th>Remove Movie </th>
+            <th>Category</th>
+            <th>Movie Image </th>
         </tr>
         @foreach (Movie movie in Model.movies)
         {
             <tr>
+                <td> <button name="movieId" value=@movie.movieId formaction=@Url.Action("BuyMovie") formmethod="post"> Buy</button></td>
                 <td>@movie.title</td>
                 <td>@movie.date </td>
                 <td>@movie.time </td>
-                <td>@movie.price </td>
-                <td>
-                    <input name="NewPrice" type="number" min="0" value="0" style="width: 50px;" />
-                    <button name="UpdatePrice" value=@movie.movieId formaction=@Url.Action("UpdatePrice") formmethod="post"> Submit</button>
-                </td>
+                @if (movie.prePrice != 0)
+                {
+                    <td> @movie.price   <s><br />@movie.prePrice</s>  </td>
+                }
+                else
+                {
+                    <td>@movie.price  </td>
+                }
+                <td>@movie.age+</td>
                 <td>@movie.hallId</td>
-                <td>
-                    <input name="NewHall" type="number" min="0" value="0" style="width: 50px;" />
-                    <button name="UpdateHall" value=@movie.movieId formaction=@Url.Action("UpdateHall") formmethod="post"> Submit</button>
-                </td>
-                <td>
-                    <button name="RemoveMovie" value=@movie.movieId formaction=@Url.Action("RemoveMovie") formmethod="post"> Remove</button>
-                </td>
+                <td>@movie.category</td>
+                <td> <img src="@Url.Content(movie.ImageUrl)" height="100" width="100" /></td>
             </tr>
         }
     </table>

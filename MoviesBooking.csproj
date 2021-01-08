@@ -184,6 +184,7 @@
     <Content Include="Views\User\stam.cshtml" />
     <Content Include="Views\User\LoginUsers.cshtml" />
     <Content Include="Views\User\RegisterUsers.cshtml" />
+    <Content Include="Views\User\SearchMovie.cshtml" />
     <Content Include="Views\User\seatCelection.cshtml" />
   </ItemGroup>
   <ItemGroup>

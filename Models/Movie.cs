@@ -18,5 +18,6 @@ namespace MoviesBooking.Models
         public string category { get; set; }
         public int hallId { get; set; }
         public int age { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
