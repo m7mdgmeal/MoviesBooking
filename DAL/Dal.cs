@@ -16,12 +16,14 @@ namespace MoviesBooking.DAL
             modelBuilder.Entity<Movie>().ToTable("moviesTbl");
             modelBuilder.Entity<Ticket>().ToTable("ticketsTbl");
             modelBuilder.Entity<Hall>().ToTable("hallsTbl");
+            modelBuilder.Entity<Guest>().ToTable("GuestTbl");
 
         }
         public DbSet<User> users { get; set; }
         public DbSet<Movie> movies { get; set; }
         public DbSet<Ticket> tickets { get; set; }
         public DbSet<Hall> halls { get; set; }
+        public DbSet<Guest> guests { get; set; }
 
 
         public List<Movie> getMoviesToUser()

@@ -15,14 +15,20 @@ namespace MoviesBooking.Controllers
         // GET: User
         public ActionResult ShowHowPage()
         {
-            if (Session["UserName"] == null)
-                Session["UserName"] = "0";
 
             Dal dal = new Dal();
             MovieViewModel cvm = new MovieViewModel();
             List<Movie> movies = dal.movies.ToList<Movie>();
             cvm.movie = new Movie();
             cvm.movies = movies;
+            if (Session["UserName"] == null)
+            {
+                Guest g = new Guest() { };
+                dal.guests.Add(g);
+                dal.SaveChanges();
+                List<Guest> guests = dal.guests.ToList<Guest>();
+                Session["UserName"] = "??"+guests[guests.Count - 1].Id.ToString();
+            }
             return View(cvm);
         }
         public ActionResult LoginUsers()
