@@ -96,9 +96,13 @@ namespace MoviesBooking.Controllers
                 return RedirectToAction("ShowHowPage", "User");
             */
             }
-        public ActionResult HallSeats(Movie movie)
+        public ActionResult HallSeats(Movie movie = null)
         {
             var dal = new Dal();
+            movie = (from x in dal.movies
+                     where x.movieId == 1003
+                     select x).ToList<Movie>()[0];
+
             var hall = (from x in dal.movies
                         from y in dal.halls
                         where x.movieId == movie.movieId
