@@ -65,7 +65,7 @@
             @foreach (Movie movie in Model.movies)
             {
                 <tr>
-                    <td> <button name="movieId" value=@movie.movieId formaction=@Url.Action("BuyMovie") formmethod="post"> Buy</button></td>
+                    <td> <button name="movieId" value=@movie.movieId formaction=@Url.Action("HallSeats") formmethod="post"> Buy</button></td>
                     <td>@movie.title</td>
                     <td>@movie.date </td>
                     <td>@movie.time </td>

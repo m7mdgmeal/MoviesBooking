@@ -72,33 +72,16 @@ namespace MoviesBooking.Controllers
             }
         }
         
-        public ActionResult BuyMovie()
-        {
-
-            Dal dal = new Dal();
-
-            var movieId = int.Parse(Request.Form["movieId"]);
-            var movie = (from x in dal.movies
-                        where x.movieId == movieId
-                        select x).ToList<Movie>()[0];
-
-            return View("HallSeats", movie);
-            /*if (exist.Count == 0)
-            {
-                TempData["msg"] = "Wrong information !!";
-                TempData["color"] = "red";
-                return View("LoginUsers");
-            }
-
-            if (exist[0].userType == "A")
-                return RedirectToAction("MangmentMovies", "Admin");
-            else
-                return RedirectToAction("ShowHowPage", "User");
-            */
-            }
-        public ActionResult HallSeats(Movie movie)
+        public ActionResult HallSeats()
         {
             var dal = new Dal();
+
+            var movieId = int.Parse(Request.Form["movieId"]);
+            Movie movie = (from x in dal.movies
+                         where x.movieId == movieId
+                         select x).ToList<Movie>()[0];
+
+
             var hall = (from x in dal.movies
                         from y in dal.halls
                         where x.movieId == movie.movieId
@@ -109,10 +92,11 @@ namespace MoviesBooking.Controllers
             var notAvalibaleTickets = (from x in dal.tickets
                                        where x.movieId == movie.movieId
                                        select x).ToList<Ticket>();
+
             notAvalibaleTickets = (from x in notAvalibaleTickets
                                    orderby x.seatNumber
                                    select x).ToList<Ticket>();
-            var seatView = new SeatsViewModel()
+            SeatsViewModel seatView = new SeatsViewModel()
             {
                 movie = movie,
                 tickets = notAvalibaleTickets,
