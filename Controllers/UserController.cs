@@ -109,7 +109,9 @@ namespace MoviesBooking.Controllers
             var notAvalibaleTickets = (from x in dal.tickets
                                        where x.movieId == movie.movieId
                                        select x).ToList<Ticket>();
-
+            notAvalibaleTickets = (from x in notAvalibaleTickets
+                                   orderby x.seatNumber
+                                   select x).ToList<Ticket>();
             var seatView = new SeatsViewModel()
             {
                 movie = movie,
