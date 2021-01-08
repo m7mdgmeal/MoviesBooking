@@ -40,7 +40,7 @@
         @foreach (Ticket ticket in Model.tickets)
         {
             <tr>
-                @if (ticket.isPayed)
+                @if (ticket.isPayed == false)
                 {
                     <td>
                         <button name="ticketId1" value=@ticket.ticketId formaction=@Url.Action("Payment") formmethod="post"> Buy</button>
