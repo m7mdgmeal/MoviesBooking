@@ -24,6 +24,10 @@
     <a href="@Url.Action("ShowHowPage", "User")">
         <span>Home page</span>
     </a>
+    <br />
+    <form action="PaymentAll" method="post">
+        <input id="Submit1" type="submit" value="Buy all" />
+    </form>
     <table>
         <tr>
             <th></th>
@@ -36,10 +40,17 @@
         @foreach (Ticket ticket in Model.tickets)
         {
             <tr>
-                <td>
-                    <button name="movieId" value=@ticket.ticketId formaction=@Url.Action("BuyTicket") formmethod="post"> Buy</button>
-                    <button name="movieId" value=@ticket.movieId formaction=@Url.Action("ChangeSeatNumber") formmethod="post"> Change seat number</button>
-                </td>
+                @if (ticket.isPayed)
+                {
+                    <td>
+                        <button name="ticketId1" value=@ticket.ticketId formaction=@Url.Action("Payment") formmethod="post"> Buy</button>
+                        <button name="ticketId2" value=@ticket.ticketId formaction=@Url.Action("ChangeSeatNumber") formmethod="post"> Change seat number</button>
+                    </td>
+                }
+                else
+                {
+                    <td>Paid</td>
+                }
                 <td>@Model.GetName(ticket.movieId)</td>
                 <td>@Model.GetDate(ticket.movieId)</td>
                 <td>@Model.GetTime(ticket.movieId) </td>

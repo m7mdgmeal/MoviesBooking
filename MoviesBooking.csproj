@@ -186,6 +186,8 @@
     <Content Include="Views\User\RegisterUsers.cshtml" />
     <Content Include="Views\User\SearchMovie.cshtml" />
     <Content Include="Views\User\Cart.cshtml" />
+    <Content Include="Views\User\Payment.cshtml" />
+    <Content Include="Views\User\PaymentAll.cshtml" />
     <Content Include="Views\User\HallSeats.cshtml" />
   </ItemGroup>
   <ItemGroup>
