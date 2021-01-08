@@ -71,7 +71,45 @@ namespace MoviesBooking.Controllers
                 return RedirectToAction("ShowHowPage", "User");
             }
         }
-        
+        public ActionResult ChangeSeat()
+        {
+            var dal = new Dal();
+
+            var TicketId=int.Parse(Request.Form["ticketId2"]);
+
+            Session["TicketID"] = TicketId;
+
+            var movieId = (from x in dal.tickets
+                           where x.ticketId == TicketId
+                           select x.movieId).ToList<int>()[0];
+
+            Movie movie = (from x in dal.movies
+                           where x.movieId == movieId
+                           select x).ToList<Movie>()[0];
+
+            Session["TicketMovieID"] = movieId;
+            var hall = (from x in dal.movies
+                        from y in dal.halls
+                        where x.movieId == movie.movieId
+                        && y.hallId == x.hallId
+                        select y).ToList<Hall>()[0];
+
+            // get all not avalibale tickets
+            var notAvalibaleTickets = (from x in dal.tickets
+                                       where x.movieId == movie.movieId
+                                       select x).ToList<Ticket>();
+
+            notAvalibaleTickets = (from x in notAvalibaleTickets
+                                   orderby x.seatNumber
+                                   select x).ToList<Ticket>();
+            SeatsViewModel seatView = new SeatsViewModel()
+            {
+                movie = movie,
+                tickets = notAvalibaleTickets,
+                hall = hall
+            };
+            return View(seatView);
+        }
         public ActionResult HallSeats()
         {
             var dal = new Dal();
@@ -81,7 +119,7 @@ namespace MoviesBooking.Controllers
                          where x.movieId == movieId
                          select x).ToList<Movie>()[0];
 
-
+            Session["TicketMovieID"] = movieId;
             var hall = (from x in dal.movies
                         from y in dal.halls
                         where x.movieId == movie.movieId
@@ -152,6 +190,7 @@ namespace MoviesBooking.Controllers
         {
             return View();
         }
+        
         public ActionResult SearchByCategory()
         {
 
@@ -235,7 +274,6 @@ namespace MoviesBooking.Controllers
         }
         public ActionResult PaymentAll()
         {
-            Session["BuyTicket"] = Session["UserName"];
             return View();
         }
         public ActionResult BuyTicket()
@@ -248,12 +286,13 @@ namespace MoviesBooking.Controllers
                                     select x).ToList<Ticket>();
             tickets[0].isPayed = true;
             dal.SaveChanges();
+            TempData["msg"] = "Payment done successfully !!";
             return RedirectToAction("Cart", "User");
         }
         public ActionResult BuyAllTickets()
         {
 
-            string id = (string)Session["BuyAllTicket"];
+            string id = (string)Session["UserName"];
             Dal dal = new Dal();
             List<Ticket> tickets = (from x in dal.tickets
                                     where x.userName.Equals(id)
@@ -262,6 +301,35 @@ namespace MoviesBooking.Controllers
             foreach (Ticket ticket in tickets)
                   ticket.isPayed = true;
 
+            dal.SaveChanges();
+            TempData["msg"] = "Payment done successfully !!";
+            return RedirectToAction("Cart", "User");
+        }
+
+        public ActionResult CreatTicket()
+        {
+            int id, seatNum;
+            id =(int) Session["TicketMovieID"];
+            Int32.TryParse(Request.Form["SeatNumber"], out seatNum);
+            Dal dal = new Dal();
+            Ticket ticket = new Ticket
+            {isPayed = false, seatNumber = seatNum, movieId = id, userName = (string)Session["UserName"] };
+
+            dal.tickets.Add(ticket);
+            dal.SaveChanges();
+            return RedirectToAction("Cart", "User");
+        }
+        public ActionResult UpdateTicket()
+        {
+            int id, seatNum;
+            id = (int)Session["TicketID"];
+
+            Int32.TryParse(Request.Form["SeatNumber"], out seatNum);
+            Dal dal = new Dal();
+            Ticket ticket = (from x in dal.tickets
+                                    where x.ticketId.Equals(id)
+                                    select x).ToList<Ticket>()[0];
+            ticket.seatNumber = seatNum;
             dal.SaveChanges();
             return RedirectToAction("Cart", "User");
         }

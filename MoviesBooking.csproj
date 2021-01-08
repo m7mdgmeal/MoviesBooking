@@ -181,7 +181,6 @@
     <Content Include="Views\Admin\MangmentMovies.cshtml" />
     <Content Include="Views\Admin\ManagingHalls.cshtml" />
     <Content Include="Views\Admin\AddMovie.cshtml" />
-    <Content Include="Views\User\stam.cshtml" />
     <Content Include="Views\User\LoginUsers.cshtml" />
     <Content Include="Views\User\RegisterUsers.cshtml" />
     <Content Include="Views\User\SearchMovie.cshtml" />
@@ -189,6 +188,7 @@
     <Content Include="Views\User\Payment.cshtml" />
     <Content Include="Views\User\PaymentAll.cshtml" />
     <Content Include="Views\User\HallSeats.cshtml" />
+    <Content Include="Views\User\ChangeSeat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
