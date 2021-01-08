@@ -65,14 +65,19 @@ namespace MoviesBooking.Controllers
             else
                 return RedirectToAction("ShowHowPage", "User"); 
         }
+        
         public ActionResult BuyMovie()
         {
+
             Dal dal = new Dal();
-            List<User> exist = (from x in dal.users
-                                where x.userName.Equals("12")
-            && x.password.Equals("123")
-                                select x).ToList<User>();
-            if (exist.Count == 0)
+
+            var movieId = int.Parse(Request.Form["movieId"]);
+            var movie = (from x in dal.movies
+                        where x.movieId == movieId
+                        select x).ToList<Movie>()[0];
+
+            return View("HallSeats", movie);
+            /*if (exist.Count == 0)
             {
                 TempData["msg"] = "Wrong information !!";
                 TempData["color"] = "red";
@@ -83,6 +88,29 @@ namespace MoviesBooking.Controllers
                 return RedirectToAction("MangmentMovies", "Admin");
             else
                 return RedirectToAction("ShowHowPage", "User");
+            */
+            }
+        public ActionResult HallSeats(Movie movie)
+        {
+            var dal = new Dal();
+            var hall = (from x in dal.movies
+                        from y in dal.halls
+                        where x.movieId == movie.movieId
+                        && y.hallId == x.hallId
+                        select y).ToList<Hall>()[0];
+
+            // get all not avalibale tickets
+            var notAvalibaleTickets = (from x in dal.tickets
+                                       where x.movieId == movie.movieId
+                                       select x).ToList<Ticket>();
+
+            var seatView = new SeatsViewModel()
+            {
+                movie = movie,
+                tickets = notAvalibaleTickets,
+                hall = hall
+            };
+            return View(seatView);
         }
         public ActionResult OrderMovies()
         {

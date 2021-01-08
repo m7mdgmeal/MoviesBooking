@@ -185,7 +185,7 @@
     <Content Include="Views\User\LoginUsers.cshtml" />
     <Content Include="Views\User\RegisterUsers.cshtml" />
     <Content Include="Views\User\SearchMovie.cshtml" />
-    <Content Include="Views\User\seatCelection.cshtml" />
+    <Content Include="Views\User\HallSeats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

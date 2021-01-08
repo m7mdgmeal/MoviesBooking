@@ -1,0 +1,42 @@
+﻿@using MoviesBooking.Models
+@model MoviesBooking.ViewModel.SeatsViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Hall Seats</title>
+</head>
+<body>
+    <h2>Movie Name : @Model.movie.title</h2>
+    <h3>Take Place in Hall id : @Model.hall.hallId</h3>
+    <h3>Total Seats : @Model.hall.seatsNumber</h3>
+    <br />
+    <h3>Seats Marked in Red are Not Avalibale</h3>
+    <br />
+    @{
+        int count = 1;
+        for (int i = 0; i < Model.row(); ++i)
+        {
+            for (int j = 0; j < Model.column(); ++j)
+            {
+                if (Model.tickets[i].seatNumber == count)
+                {
+                    <h4 style="color:red;">@count </h4>
+                }
+                else
+                {
+                    <h4 style="color:red;">@count </h4>
+                   }
+                }
+            }
+        }
+
+    <h3>Select Your Seat:</h3>
+
+</body>
+</html>
