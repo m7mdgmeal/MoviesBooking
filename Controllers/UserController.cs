@@ -212,5 +212,45 @@ namespace MoviesBooking.Controllers
             cvm.tickets = tickets;
             return View(cvm);
         }
+        
+
+        public ActionResult Payment()
+        {
+            Session["BuyTicket"] = Request.Form["ticketId1"];
+            return View();
+        }
+        public ActionResult PaymentAll()
+        {
+            Session["BuyTicket"] = Session["UserName"];
+            return View();
+        }
+        public ActionResult BuyTicket()
+        {
+            int id;
+            Int32.TryParse((string)Session["BuyTicket"], out id);
+            Dal dal = new Dal();
+            List<Ticket> tickets = (from x in dal.tickets
+                                    where x.ticketId.Equals(id)
+                                    select x).ToList<Ticket>();
+            tickets[0].isPayed = true;
+            dal.SaveChanges();
+            return RedirectToAction("Cart", "User");
+        }
+        public ActionResult BuyAllTickets()
+        {
+
+            string id = (string)Session["BuyAllTicket"];
+            Dal dal = new Dal();
+            List<Ticket> tickets = (from x in dal.tickets
+                                    where x.userName.Equals(id)
+                                    select x).ToList<Ticket>();
+
+            foreach (Ticket ticket in tickets)
+                  ticket.isPayed = true;
+
+            dal.SaveChanges();
+            return RedirectToAction("Cart", "User");
+        }
+
     }
 }
