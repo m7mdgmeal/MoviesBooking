@@ -42,6 +42,11 @@ namespace MoviesBooking.ViewModel
                                   select x).ToList<Movie>();
             return movies[0].price;
         }
+        public bool isAllPayed()
+        {
+            var rsult = (from x in tickets where x.isPayed == false select x).ToList<Ticket>();
+            return rsult.Count == 0;
+        }
     }
 
 }

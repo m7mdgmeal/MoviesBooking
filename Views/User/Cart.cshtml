@@ -32,10 +32,12 @@
     <form action="PaymentAll" method="post">
         @if (Model.tickets.Count != 0)
         {
+            @if (Model.isAllPayed()) {
             <input id="Submit1" type="submit" value="Buy all" />
+                } 
         }
-        else
-        {
+            else
+            {
             <input id="Submit1" type="submit" value="Buy all" disabled="true" />
         }
     </form>
