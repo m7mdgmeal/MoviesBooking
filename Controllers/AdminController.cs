@@ -74,9 +74,25 @@ namespace MoviesBooking.Controllers
             int id;
             Int32.TryParse(Request.Form["RemoveMovie"], out id);
             List<Movie> exist = (from x in dal.movies where x.movieId.Equals(id) select x).ToList<Movie>();
-            dal.movies.Remove(exist[0]);
-            dal.SaveChanges();
-            return RedirectToAction("MangmentMovies", "Admin"); 
+
+            string date = exist[0].date + " " + exist[0].time;
+            DateTime MDate = DateTime.ParseExact(date, "yyyy-MM-dd HH:mm", null);
+
+            DateTime NDate = DateTime.Now;
+
+            var ticketsNumber = (from x in dal.tickets where x.movieId == id select x).ToList<Ticket>();
+
+            if((NDate >=MDate) || (ticketsNumber.Count == 0))
+            {
+
+                dal.movies.Remove(exist[0]);
+                dal.SaveChanges();
+                return RedirectToAction("MangmentMovies", "Admin");
+            }
+            TempData["msg"] = "Can't delete movie , The User Already take tickets";
+            TempData["color"] = "red";
+            return RedirectToAction("MangmentMovies");
+             
         }
         public ActionResult AddMovie()
         {
@@ -87,12 +103,12 @@ namespace MoviesBooking.Controllers
             Dal dal = new Dal();
             List<Movie> exist = (from x in dal.movies 
                                  where x.time.Contains(obj.time)
-                                 && x.date.Contains(obj.date) && x.title.Contains(obj.title)
+                                 && x.date.Contains(obj.date) && x.hallId.Equals(obj.hallId)
                                  select x).ToList<Movie>();
 
             if (exist.Count != 0)
             {
-                TempData["msg"] = "Movie already exist !!";
+                TempData["msg"] = "There is a movie running in the same time in the same hall !!";
                 TempData["color"] = "red";
                 return View("AddMovie");
             }

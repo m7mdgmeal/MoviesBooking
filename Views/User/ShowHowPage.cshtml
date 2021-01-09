@@ -37,6 +37,7 @@
             <option name="Choice1">Price increase</option>
             <option name="Choice2">Price decrease</option>
             <option name="Choice3">Most popular</option>
+            <option name="Choice3">Most popular</option>
             <option name="Choice4">Category</option>
         </select>
         <input type="submit" value="order">
@@ -44,10 +45,13 @@
     <form action="SearchMovie" method="post">
         <input type="submit" value="Search a movie">
     </form>
+
     <br />
+    @if (Session["UserName"].ToString().Contains("??")) {
     <a href="@Url.Action("LoginUsers", "User")">
         <span>Login page</span>
     </a>
+    }
     <br />
     <a href="@Url.Action("Cart", "User")">
         <span>Shopping cart</span>
