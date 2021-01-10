@@ -330,8 +330,12 @@ namespace MoviesBooking.Controllers
             cvm.tickets = tickets;
             return View(cvm);
         }
-        
 
+        public ActionResult SignOut()
+        {
+            Session["UserName"] = null;
+            return RedirectToAction("ShowHowPage","User");
+        }
         public ActionResult Payment()
         {
             Session["BuyTicket"] = Request.Form["ticketId1"];

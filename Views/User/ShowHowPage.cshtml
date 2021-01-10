@@ -47,11 +47,21 @@
     </form>
 
     <br />
-    @if (Session["UserName"].ToString().Contains("??")) {
-    <a href="@Url.Action("LoginUsers", "User")">
-        <span>Login page</span>
-    </a>
+    @{
+        if (Session["UserName"].ToString().Contains("??"))
+        {
+            <a href="@Url.Action("LoginUsers", "User")">
+                <span>Login page</span>
+            </a>
+        }
+        else
+        {
+            <a href="@Url.Action("SignOut", "User")">
+                <span style="color:red">Sign Out </span>
+            </a>
+        }
     }
+
     <br />
     <a href="@Url.Action("Cart", "User")">
         <span>Shopping cart</span>

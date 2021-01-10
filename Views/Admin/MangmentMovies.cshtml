@@ -32,6 +32,11 @@
     <form action="ManagingHalls" method="post">
         <input id="Submit1" type="submit" value="Managing halls" />
     </form>
+
+    <a href="@Url.Action("SignOut", "User")">
+        <span style="color:red">Sign Out </span>
+    </a>
+    
     <form action="" method="post">
         <table>
             <tr>
@@ -52,12 +57,12 @@
                     <td>@movie.time </td>
                     <td>@movie.price </td>
                     <td>
-                        <input name="NewPrice" type="number" min="0"  style="width: 50px;" />
+                        <input name="NewPrice" type="number" min="0" style="width: 50px;" />
                         <button name="UpdatePrice" value=@movie.movieId formaction=@Url.Action("UpdatePrice") formmethod="post"> Submit</button>
                     </td>
                     <td>@movie.hallId</td>
                     <td>
-                        <input name="NewHall" type="number" min="0"  style="width: 50px;" />
+                        <input name="NewHall" type="number" min="0" style="width: 50px;" />
                         <button name="UpdateHall" value=@movie.movieId formaction=@Url.Action("UpdateHall") formmethod="post"> Submit</button>
                     </td>
                     <td>
