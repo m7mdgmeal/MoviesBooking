@@ -112,13 +112,25 @@ namespace MoviesBooking.Controllers
             notAvalibaleTickets = (from x in notAvalibaleTickets
                                    orderby x.seatNumber
                                    select x).ToList<Ticket>();
-            SeatsViewModel seatView = new SeatsViewModel()
+
+            var list1 = Enumerable.Range(1, hall.seatsNumber).ToList();
+            var list2 = (from x in notAvalibaleTickets
+                         select x.seatNumber).ToList<int>();
+            var list3 = list1.Except(list2).ToList();
+            if (list3.Count != 0)
             {
-                movie = movie,
-                tickets = notAvalibaleTickets,
-                hall = hall
-            };
-            return View(seatView);
+                SeatsViewModel seatView = new SeatsViewModel()
+                {
+                    movie = movie,
+                    tickets = notAvalibaleTickets,
+                    hall = hall
+                };
+                return View(seatView);
+            }
+         
+            TempData["msg"] = "Can't Change the seat , You Take the last seat.!!";
+            TempData["color"] = "red";
+            return RedirectToAction("Cart");
         }
         public ActionResult HallSeats()
         {
@@ -166,7 +178,19 @@ namespace MoviesBooking.Controllers
                 TempData["msg"] = "You are under the requested age !!";
                 return RedirectToAction("ShowHowPage", "User"); ;
             }
-            return View(seatView);
+
+            var list1 = Enumerable.Range(1, hall.seatsNumber).ToList();
+            var list2 = (from x in notAvalibaleTickets
+                         select x.seatNumber).ToList<int>();
+            var list3 = list1.Except(list2).ToList();
+            if (list3.Count != 0)
+            {
+                return View(seatView);
+            }
+
+            TempData["msg"] = "Can't Buy a ticket , All tickets are bougth.!!";
+            TempData["color"] = "red";
+            return RedirectToAction("ShowHowPage");
         }
         public ActionResult OrderMovies()
         {
@@ -328,6 +352,7 @@ namespace MoviesBooking.Controllers
             tickets[0].isPayed = true;
             dal.SaveChanges();
             TempData["msg"] = "Payment done successfully !!";
+            TempData["color"] = "blue";
             return RedirectToAction("Cart", "User");
         }
         public ActionResult BuyAllTickets()
@@ -344,6 +369,7 @@ namespace MoviesBooking.Controllers
 
             dal.SaveChanges();
             TempData["msg"] = "Payment done successfully !!";
+            TempData["color"] = "blue";
             return RedirectToAction("Cart", "User");
         }
 

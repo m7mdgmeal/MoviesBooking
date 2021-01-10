@@ -23,7 +23,7 @@
 <body>
     @if (TempData["msg"] != null)
     {
-        <h4 style="color:blue;"> @TempData["msg"] </h4>
+        <h4 style="color:@TempData["color"];"> @TempData["msg"] </h4>
     }
     <a href="@Url.Action("ShowHowPage", "User")">
         <span>Home page</span>
