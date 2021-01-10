@@ -170,12 +170,15 @@ namespace MoviesBooking.Controllers
 
             {
                 TempData["msg"] = "You cant buy a ticket for movie that ended!!";
+                TempData["color"] = "red";
                 return RedirectToAction("ShowHowPage", "User"); ;
             }
             if (Session["age"]!= null && movie.age >(int)Session["age"])
 
             {
                 TempData["msg"] = "You are under the requested age !!";
+                TempData["color"] = "red";
+
                 return RedirectToAction("ShowHowPage", "User"); ;
             }
 
@@ -388,7 +391,9 @@ namespace MoviesBooking.Controllers
 
             dal.tickets.Add(ticket);
             dal.SaveChanges();
-            return RedirectToAction("Cart", "User");
+            TempData["msg"] = "Item added to Cart Susseccfuly!!";
+            TempData["color"] = "blue";
+            return RedirectToAction("ShowHowPage", "User");
         }
         public ActionResult UpdateTicket()
         {

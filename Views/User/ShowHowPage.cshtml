@@ -25,7 +25,7 @@
 <body>
     @if (TempData["msg"] != null)
     {
-        <h4 style="color:red;"> @TempData["msg"] </h4>
+        <h4 style="color:@TempData["color"];"> @TempData["msg"] </h4>
     }
     <form action="FilterMovie" method="post">
         Show only movies with the decreased price :
